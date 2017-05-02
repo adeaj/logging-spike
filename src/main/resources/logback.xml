@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+        <Appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <timestamp/>
+                    <mdc/>
+                    <message/>
+                    <logLevel/>
+                    <stackTrace/>
+                </providers>
+            </encoder>
+        </Appender>
+
+        <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+            <file>logs/app.log</file>
+            <append>true</append>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} %X{reqId} %X{logging} %X{url}- %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="com.nutmeg.logging" level="debug" additivity="false">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="FILE" />
+        </logger>
+
+        <root level="error">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="FILE" />
+        </root>
+
+</configuration>
